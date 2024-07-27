@@ -67,9 +67,9 @@ class StatBlock :
             hidden_roll="[[floor([[[[[[[[[[[[[[[[[[?{Jet d'attaque |0}]]-1]]-49]]-1]]-99]]-1]]*0+@{" + self.ref_name + self.dmg + "}]]*2]]/8)]]",
             # One row to make it look better. 
             row_labels=[
-                "$[[2]] ≤ Déf ≤ $[[1]]%NEWLINE%$[[4]] ≤ Déf ≤ $[[3]]%NEWLINE%Déf ≤ $[[5]]"
+                "Déf ≤ $[[1]]%NEWLINE%Déf ≤ $[[3]]%NEWLINE%Déf ≤ $[[5]]"
             ], row_contents=[
-                "🡆 $[[8]]%NEWLINE%🡆 $[[6]]%NEWLINE%🡆 $[[7]]"
+                "🡆 $[[8]] Dég%NEWLINE%🡆 $[[6]] Dég%NEWLINE%🡆 $[[7]] Dég"
             ]
         ) 
 
@@ -330,7 +330,7 @@ if __name__ == "__main__":
     # Getting the init
     # print(perso.getInit())
     # Getting the damage from a roll (will query the attack roll)
-    # print(perso.damageMacro())
+    print(perso.damageMacro())
 
     # Single line roll example with MEN-Intellect :
     # print(perso.roll("MEN", "Intellect")) 
@@ -342,11 +342,11 @@ if __name__ == "__main__":
     # STAT = FOR, CON, AGI, DEX, MEN, SEN, DET, PRE
 
     # Example of adding speciality to the macro of Combat
-    perso.linkSpeToComp("Combat", ["Attaque", "Parade", "Esquive"]) 
+    # perso.linkSpeToComp("Combat", ["Attaque", "Parade", "Esquive"]) 
 
     # This will output a query for a combat roll, limited to 3 statistic only 
     # (This macro will automatically use the specialities specified just before)
-    print(perso.queryRollTable("Combat"  , stat_keys = ["DEX", "AGI", "SEN"])) 
+    # print(perso.queryRollTable("Combat"  , stat_keys = ["DEX", "AGI", "SEN"])) 
  
 
     # The following macro have their stat_keys ordered to be tailored for each competence macro.

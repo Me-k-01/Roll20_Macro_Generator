@@ -89,10 +89,10 @@ En sortie : Le calcul au sein d'un tableau nommé automatiquement selon les entr
 ## Diagramme du code 
 ![Diagram](demo/diagram_code.png)
 
-## Utilisation avancé 
+## Utilisation avancée
 
 Vous pouvez également modifier les noms des attributs (STAT, compétences, spécialité et endurance) dans le code à votre guise, du moment que, sur la fiche perso, celui-ci soit définit.
 
-Je ne recommande pas d'utiliser ces macros en dehors des fiches perso, car Roll20 à la fameuse tendance a d'encoder les charactère HTML, lorsque la macro est réouverte dans les macros globales.
+Je ne recommande pas d'utiliser ces macros en dehors des fiches perso, car Roll20 à la facheuse tendance d'encoder les entités HTML, lorsque la macro est réouverte dans les macros globales.
 
-Cependant il est également possible de définir un nom de personnage sur lequelle lier les macros (attribut ref_name de StatBlock).
+Cependant, il est tout de même possible de définir un nom de personnage sur lequelle lier les macros (attribut ref_name de StatBlock).

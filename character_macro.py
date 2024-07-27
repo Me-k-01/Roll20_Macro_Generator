@@ -1,4 +1,4 @@
-from roll20_format_lib import formatNested, createTable, createSelectable  
+from roll20_format_lib import formatNested, createTable, createDropdown  
     
 class StatBlock :
     """Generate macro to be used in a character sheet, that will automatically fetch the attributes inside the character sheet.
@@ -259,8 +259,8 @@ class StatBlock :
         comp_key : String = A competence from which to generate the query.
 
         # Optional arguments :
-        stat_keys : list[String] = Default to None; Restrict the stat to prompt to a list of stat_key. Can also be used to set an order in the stat query
-        add_optional_bonus : bool = Default to True; Do the macro prompt the user a bonus to use that will go past the ability limit?
+        stat_keys : list[String] = Default to None; Restrict the stat to query to a list of stat_key. Can also be used to set an order in the stat query
+        add_optional_bonus : bool = Default to True; Does the macro ask at the end a bonus to use that will go past the ability limit?
         """ 
 
         assert comp_key in self.comp_keys 
@@ -268,8 +268,8 @@ class StatBlock :
         if stat_keys is None : # By default, makes a query that ask for every stats
             stat_keys = self.stat_keys
    
-        # First level of nesting : Stat prompt
-        macro = createSelectable(
+        # First level of nesting : Stat query
+        macro = createDropdown(
             title="Stat pour " + comp_key.lower() + " ", 
             labels=[
                 stat_key + " (@{"+stat_key+"})" 
@@ -278,8 +278,8 @@ class StatBlock :
             outputs = [ 
                 self.rollTable(comp_key, stat_key)
                 if len(self.spe[comp_key]) == 0 else
-                # Second level of nesting : Spé prompt 
-                createSelectable(
+                # Second level of nesting : Speciality query 
+                createDropdown(
                     title="Spé pour " + comp_key.lower() + " ", 
                     labels=["-"] + [
                         spe + " (@{"+spe+"})"

@@ -1,15 +1,16 @@
 import re
 
 ######## Global variables
+# HMTL entities convert table
 replacable_char = {
     "&" : "&amp;", #"&#38;",
     # "#" : "&#35;",
+    # "space" : "&nbsp;", # "&#160;",
 
     "," : "&#44;",
     "|" : "&#124;",
     "{" : "&lbrace;",   # "&#123;",
-    "}" : "&rbrace;",   # "&#125;", 
-    "space" : "&nbsp;", # "&#160;",
+    "}" : "&rbrace;",   # "&#125;",  
     "=" : "&#61;",
     "_" : "&#95;",
     "(" : "&#40;",
@@ -43,9 +44,10 @@ def createTable(title, row_labels, row_contents) :
 
     return output_table
 
-def createSelectable(title, labels, outputs, do_format_nested=True, deeply_nested=False):
-    """Create a selectable macro. If you have multiple selectable, you'll have to use different title for each one of them,
-    because roll20 will automatically parse the values of the first query to the second, if they have the same name.
+def createDropdown(title, labels, outputs, do_format_nested=True, deeply_nested=False):
+    """Create a macro that will query the ouputs to use with a dropdown of labels. 
+    If you have multiple dropdown in your macro, you'll have to use different title for each one of them,
+    because roll20 will automatically parse the ouput of the first query to the second if they have the same name, instead of reasking the user.
     
     # Arguments 
     title : String = The title of the query (usually a question)
@@ -53,7 +55,8 @@ def createSelectable(title, labels, outputs, do_format_nested=True, deeply_neste
     outputs : list[String] = The query outputs
 
     # Optional arguments 
-    do_format_nested : bool = Default to True; will automatically format the problematic character inside the query.
+    do_format_nested : bool = Default to True; Do we want to automatically format the problematic character inside the query.
+    deeply_nested : bool = Default to False; Is this dropdown query already inside an other dropdown query?
     """
     char_to_format = ["}", "|", ","] 
     if do_format_nested and deeply_nested :
@@ -78,10 +81,17 @@ def createSelectable(title, labels, outputs, do_format_nested=True, deeply_neste
     return select_macro
 
 
-def customReplace(match, char_to_format):
+def customReplace(m, char_to_format):
     global replacable_char
+    """Regex replace method.
+
+    # Argument 
+    m : Match = The regex match sequence.
+    char_to_format : list[String] = A list of character that will be replaced.
+    """
+    
     # Remplacer les caractères seulement si le match n'est pas une portion protégée
-    word = match.group(0)
+    word = m.group(0)
     if re.match(r'@{[^}]*}|%{[^}]*}|#[ ]* ', word):
         return word  # Ne pas remplacer dans ces cas
     else:
@@ -91,14 +101,17 @@ def customReplace(match, char_to_format):
 
 def formatNested(text, char_to_format=None):
     global replacable_char
-    """Format a macro to be nested inside another macro"""
+    """Format a macro to be nested inside another macro
+
+    # Optional arguments 
+    char_to_format : list[String] = Default to None; A list of character that will be replaced. Leave this value to None to replace everything.
+    """
 
 
     if char_to_format is None :
         char_to_format = list(replacable_char.keys())
     else :
         char_to_format = char_to_format.copy()
-
 
     # Construire une regex qui capture tous les caractères spécifiés
     regex_replacable_char = ''.join(re.escape(k) for k in replacable_char.keys())
@@ -108,12 +121,12 @@ def formatNested(text, char_to_format=None):
     return pattern.sub(lambda m : customReplace(m, char_to_format), text) 
 
 if __name__ == "__main__":
-    input_text = "Here is &#a  &#96;e test @{not,replaced} and %{also,not,replaced} #bu#t # this# #e ||[][{}] and also @this should be replaced"
+    input_text = "Here is &#a  test @{not,replaced} and %{also,not,replaced} #bu#t # this# #e ||[][{}] and also @this should be replaced"
     # input_text = "Here is &#96a,a"
     result = formatNested(input_text)
-    print(result)  # Doit afficher &#124;
+    print(result)   
  
     # Exemple d'utilisation 
-    input_text = "Here is a te,st, @{not,replaced} and %{also,not,replaced} but this ||[][{}],@ should be replaced"
+    input_text = "Here is &#a  test @{not,replaced} and %{also,not,replaced} #bu#t # this# #e ||[][{}] and also @this should be replaced"
     result = formatNested(input_text, char_to_format=["]"])
-    print(result) 
+    print("Format only ']' :", result) 

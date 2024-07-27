@@ -4,7 +4,7 @@
 
 https://www.online-python.com/DBFpeTIdMY
 
-Ce générateur de macro pour fiche perso a été réalisé dans le cadre du système One Piece, créer par le vénérable Antoine Geslin.
+Ce générateur de macro pour fiche perso a été réalisé dans le cadre du système One Piece (créer par Antoine Geslin, le vénérable MJ).
 
 Il permet d'automatiser le lancer de dé 100 en se servant des attributs fournis dans la fiche de personnage sur roll20, tel que le système l'exige.
 
@@ -20,7 +20,7 @@ Le calcul total du jet ressemble a ceci :
 - **Spécialité :** la spécialité (lié en général à une Compétence)
 - **STAT_LIM :** valeur maximal que le jet pourra prendre (déduite de la stat de base).
 - **Bonus :** modificateur optionnel qui permet de briser la limite de stat, et s'ajoute directement au résultat du jet, après calcul de limite. 
-- **Fatigue :** malus de fatigue (lorsque l'endurance du personnage passe dans les négatifs, il est ajouté au jet), qui réduit également la limite. 
+- **Fatigue :** malus de fatigue qui réduit également la limite (lorsque l'endurance du personnage passe dans les négatifs, il est ajouté au jet). 
 
 ---
 ## Utilisation du code

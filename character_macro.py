@@ -63,7 +63,7 @@ class StatBlock :
         #     ]
         # )
  
-        return createTable(title="Dégâts pour : " + "?{Jet d'attaque |0} à l'attaque", 
+        return createTable(title="Dégâts pour " + "?{Jet d'attaque |0} à l'attaque", 
             hidden_roll="[[floor([[[[[[[[[[[[[[[[[[?{Jet d'attaque |0}]]-1]]-49]]-1]]-99]]-1]]*0+@{" + self.ref_name + self.dmg + "}]]*2]]/8)]]",
             # One row to make it look better. 
             row_labels=[

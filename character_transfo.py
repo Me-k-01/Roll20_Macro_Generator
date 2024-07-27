@@ -24,12 +24,12 @@ class TransfoStatBlock(StatBlock) :
         """Generate a macro that will calculate the damage threshold. 
         Will query the value of the attack roll and uses the base damage attribute in the character sheet."""
  
-        return createTable(title="Dégâts pour : " + "?{Jet d'attaque |0} à l'attaque", 
+        return createTable(title="Dégâts pour " + "?{Jet d'attaque |0} à l'attaque", 
             hidden_roll="[[floor([[[[[[[[[[[[[[[[[[?{Jet d'attaque |0}]]-1]]-49]]-1]]-99]]-1]]*0+@{" +\
                 self.original_character_ref + self.dmg + "}+@{" + self.dmg + "}]]*2]]/8)]]",
             # One row to make it look better. 
             row_labels=[
-                "$[[2]] ≤ Déf ≤ $[[1]]%NEWLINE%$[[4]] ≤ Déf ≤ $[[3]]%NEWLINE%Déf ≤ $[[5]]"
+                "Déf ≤ $[[1]]%NEWLINE%Déf ≤ $[[3]]%NEWLINE%Déf ≤ $[[5]]"
             ], row_contents=[
                 "🡆 $[[8]] Dég%NEWLINE%🡆 $[[6]] Dég%NEWLINE%🡆 $[[7]] Dég"
             ]

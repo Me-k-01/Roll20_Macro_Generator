@@ -28,17 +28,18 @@ replacable_char = {
 }
 
 ######## Functions
-def createTable(title, row_labels, row_contents) :
+def createTable(title, row_labels, row_contents, hidden_roll="") :
     """Generate a table from a dictionnary.
     
     # Arguments 
     title : String = The title of the table
     row_labels : list[String] = The left side of the table
     row_contents : list[String] = The right side of the table
+    hidden_roll : String = Default to ""; This row is hidden from the table, and can be used to execute roll before referencing them in the table with $[[i]]. "i" correspond to the parsing order of the roll.
     """
     assert len(row_labels) == len(row_contents)
 
-    output_table = "&{template:default} {{name=" + title + "}}"
+    output_table = "&{template:default} {{name=" + title + "}}" + hidden_roll
     for i in range(len(row_labels)) :
         output_table += "{{" + row_labels[i] + "=" + row_contents[i] + "}}"
 

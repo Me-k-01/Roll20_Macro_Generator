@@ -17,9 +17,9 @@ class StatBlock :
         else :
             self.ref_name = ""
         self.comment=comment
-
+        # Special attributes
         self.endu = "Endurance"
-
+        self.dmg = "Damage"
         # Recommended naming schemes of the values on the character sheet :
         # Pascal case
         self.comp_keys = [
@@ -45,6 +45,33 @@ class StatBlock :
             "Combat":[]
         }
         self.d100 = "d100cf<5cs>96"
+
+    def damageMacro(self) :
+        """Generate a macro that will calculate the damage threshold. 
+        Will query the value of the attack roll and uses the base damage attribute in the character sheet."""
+
+        # return createTable(title="Dégâts pour : " + "?{Jet d'attaque |0} à l'attaque", 
+        #     hidden_roll="[[floor([[[[[[[[[[[[[[[[[[?{Jet d'attaque |0}]]-1]]-49]]-1]]-99]]-1]]*0+@{" + self.ref_name + self.dmg + "}]]*2]]/8)]]",
+        #     row_labels=[
+        #         "$[[2]] ≤ Déf ≤ $[[1]] 🡆",
+        #         "$[[4]] ≤ Déf ≤ $[[3]] 🡆",
+        #         "Déf ≤ $[[5]] 🡆"
+        #     ], row_contents=[
+        #         "$[[8]]",
+        #         "$[[6]]",
+        #         "$[[7]]" 
+        #     ]
+        # )
+ 
+        return createTable(title="Dégâts pour : " + "?{Jet d'attaque |0} à l'attaque", 
+            hidden_roll="[[floor([[[[[[[[[[[[[[[[[[?{Jet d'attaque |0}]]-1]]-49]]-1]]-99]]-1]]*0+@{" + self.ref_name + self.dmg + "}]]*2]]/8)]]",
+            # One row to make it look better. 
+            row_labels=[
+                "$[[2]] ≤ Déf ≤ $[[1]]%NEWLINE%$[[4]] ≤ Déf ≤ $[[3]]%NEWLINE%Déf ≤ $[[5]]"
+            ], row_contents=[
+                "🡆 $[[8]]%NEWLINE%🡆 $[[6]]%NEWLINE%🡆 $[[7]]"
+            ]
+        ) 
 
     def getFatigue(self, is_contained=True): 
         """Retrieve the exchaustion penalty.
@@ -166,7 +193,7 @@ class StatBlock :
         # Modifyer that breaks the limit
         add_to_limit = "+" + self.getFatigue()
         if add_optional_bonus :
-            add_to_limit += "+?{Bonus}"
+            add_to_limit += "+?{Bonus|0}"
             if self.comment :
                 add_to_limit += "[Bonus]"
 
@@ -298,23 +325,29 @@ class StatBlock :
  
 if __name__ == "__main__":
     perso = StatBlock(comment=True)  
-     
+
+    ######## Getting the essential :  
     # Getting the init
     # print(perso.getInit())
+    # Getting the damage from a roll (will query the attack roll)
+    # print(perso.damageMacro())
 
     # Single line roll example with MEN-Intellect :
     # print(perso.roll("MEN", "Intellect")) 
     
+
+    ######## Making the competence macro :
+    # Competences and abilities that can be used:
+    # Comp = Physique, Volonte, Social, Intellect, Perception, Creation, Clandestin, Combat
+    # STAT = FOR, CON, AGI, DEX, MEN, SEN, DET, PRE
+
     # Example of adding speciality to the macro of Combat
     perso.linkSpeToComp("Combat", ["Attaque", "Parade", "Esquive"]) 
 
     # This will output a query of Combat roll, limited to 3 statistic only 
     # (This macro will automatically use the specialities specified just before)
     print(perso.queryRollTable("Combat"  , stat_keys = ["DEX", "AGI", "SEN"])) 
-
-    # Competences and abilities that can be used:
-    # Comp = [ "Physique", "Volonte", "Social", "Intellect", "Perception", "Creation", "Clandestin", "Combat" ]
-    # STAT = [ "FOR", "CON", "AGI", "DEX", "MEN", "SEN", "DET", "PRE" ]
+ 
 
     # The following macro have their stat_keys ordered to be tailored for each competence macro.
     # print(perso.queryRollTable("Physique"  , stat_keys=["FOR", "CON", "AGI", "DEX", "PRE", "SEN", "MEN", "DET"])) 

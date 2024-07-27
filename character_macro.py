@@ -326,7 +326,7 @@ class StatBlock :
 if __name__ == "__main__":
     perso = StatBlock(comment=True)  
 
-    ######## Getting the essential :  
+    ######## Getting the essential
     # Getting the init
     # print(perso.getInit())
     # Getting the damage from a roll (will query the attack roll)
@@ -336,7 +336,7 @@ if __name__ == "__main__":
     # print(perso.roll("MEN", "Intellect")) 
     
 
-    ######## Making the competence macro :
+    ######## Making the competences macro
     # Competences and abilities that can be used:
     # Comp = Physique, Volonte, Social, Intellect, Perception, Creation, Clandestin, Combat
     # STAT = FOR, CON, AGI, DEX, MEN, SEN, DET, PRE
@@ -344,7 +344,7 @@ if __name__ == "__main__":
     # Example of adding speciality to the macro of Combat
     perso.linkSpeToComp("Combat", ["Attaque", "Parade", "Esquive"]) 
 
-    # This will output a query of Combat roll, limited to 3 statistic only 
+    # This will output a query for a combat roll, limited to 3 statistic only 
     # (This macro will automatically use the specialities specified just before)
     print(perso.queryRollTable("Combat"  , stat_keys = ["DEX", "AGI", "SEN"])) 
  

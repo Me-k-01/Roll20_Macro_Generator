@@ -36,7 +36,7 @@ Puis instancier une nouvelle fiche de personnage avec :
 perso = StatBlock()  
 ```
 
-Ou éditer directement l'exemple de la partie main du code (ligne 300).
+Ou éditer directement l'exemple de la partie main du code du fichier `./character_macro.py` (ligne 300).
 
 Voici les méthodes de générations utilisables : 
 

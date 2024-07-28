@@ -70,7 +70,7 @@ class TransfoStatBlock(StatBlock) :
             macro = "[[" + macro + "]]"
         if self.comment :
             macro += "[" + stat_key + "]" 
-            
+        
         return macro
 
     def getAbilityLimit(self, stat_key, is_contained=True):

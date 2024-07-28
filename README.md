@@ -2,7 +2,7 @@
 
 > Executer le code en ligne : 
 
-https://www.online-python.com/hVL8EmfoRA
+https://www.online-python.com/Kxq45UZAF6
 
 Ce générateur de macro pour fiche perso a été réalisé dans le cadre du système One Piece (créer par Antoine Geslin, le vénérable MJ).
 

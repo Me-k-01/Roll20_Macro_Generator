@@ -46,9 +46,13 @@ class StatBlock :
         }
         self.d100 = "d100cf<5cs>96"
 
-    def damageMacro(self) :
+    def damageMacro(self, ask_for_bonus=True) :
         """Generate a macro that will calculate the damage threshold. 
-        Will query the value of the attack roll and uses the base damage attribute in the character sheet."""
+        Will query the value of the attack roll and uses the base damage attribute in the character sheet.
+        
+        # Optional arguments
+        ask_for_bonus : bool = Default to True; Does the macro query a damage bonus?
+        """
 
         # return createTable(title="Dégâts pour : " + "?{Jet d'attaque |0} à l'attaque", 
         #     hidden_roll="[[floor([[[[[[[[[[[[[[[[[[?{Jet d'attaque |0}]]-1]]-49]]-1]]-99]]-1]]*0+@{" + self.ref_name + self.dmg + "}]]*2]]/8)]]",
@@ -62,14 +66,20 @@ class StatBlock :
         #         "$[[7]]" 
         #     ]
         # )
- 
-        return createTable(title="Dégâts pour " + "?{Jet d'attaque |0} à l'attaque", 
-            hidden_roll="[[floor([[[[[[[[[[[[[[[[[[?{Jet d'attaque |0}]]-1]]-49]]-1]]-99]]-1]]*0+@{" + self.ref_name + self.dmg + "}]]*2]]/8)]]",
+        att_precalculation = "[[[[[[[[?{Jet d'attaque |0}]]-1]]-50]]-100]]" 
+        fetch_damage = "@{" + self.ref_name + self.dmg + "}"
+        dmg_bonus = ""
+        if ask_for_bonus :
+            dmg_bonus = "+?{Dégâts bonus |0}[Deg bonus]"
+        total_precalculation = "[[floor([[[[[["+att_precalculation+"[ATT]*0+"+fetch_damage+"]][Deg base]"+dmg_bonus+"]]*2]]/8)]]"
+  
+        return createTable(title="Dégâts pour " + "?{Jet d'attaque |0} à l'attaque",  
+            hidden_roll = total_precalculation,
             # One row to make it look better. 
             row_labels=[
-                "Déf ≤ $[[1]]%NEWLINE%Déf ≤ $[[3]]%NEWLINE%Déf ≤ $[[5]]"
+                "Déf ≤ $[[1]]%NEWLINE%Déf ≤ $[[2]]%NEWLINE%Déf ≤ $[[3]]"
             ], row_contents=[
-                "🡆 $[[8]] Dég%NEWLINE%🡆 $[[6]] Dég%NEWLINE%🡆 $[[7]] Dég"
+                "🡆 $[[7]] Dég%NEWLINE%🡆 $[[5]] Dég%NEWLINE%🡆 $[[6]] Dég"
             ]
         ) 
 
@@ -87,18 +97,26 @@ class StatBlock :
             macro += "[Fatigue]"
         return macro
 
-    def getInit(self): 
+    def getInit(self, ask_for_bonus=True): 
         """Macro to calculate the initiative, and to add the currently selected token to the turn order.
-        The AGI stat modifier is used in this macro."""
+        The AGI stat modifier is used in this macro.
+
+        # Optional arguments
+        ask_for_bonus : bool = Default to True; Does the macro query a initiative bonus?
+        """
 
         if self.ref_name == "" :
             title = "Initiative"
         else :
             title = "Initiative de " + self.ref_name[:-1]
 
+        init_bonus = ""
+        if ask_for_bonus :
+            init_bonus = "+?{Initiative bonus |0}[Initiative bonus]"
+
         return createTable(title=title,
             row_labels=[ "Roll :" ],
-            row_contents = [ "[[" + self.d100 + " + (2*" + self.getModStat("AGI", is_contained=False) + ")[Init]&{tracker}]]" ]
+            row_contents = [ "[[([[" + self.d100 + "]][d100] + [[(2*" + self.getModStat("AGI", is_contained=False) + ")]][AGI]"+init_bonus+")&{tracker}]]" ]
         ) 
 
     def getModStat(self, stat_key, is_contained=True): 
@@ -328,9 +346,9 @@ if __name__ == "__main__":
 
     ######## Getting the essential
     # Getting the init
-    # print(perso.getInit())
+    print(perso.getInit())
     # Getting the damage from a roll (will query the attack roll)
-    print(perso.damageMacro())
+    # print(perso.damageMacro())
 
     # Single line roll example with MEN-Intellect :
     # print(perso.roll("MEN", "Intellect")) 

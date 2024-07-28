@@ -41,22 +41,26 @@ Ou éditer directement l'exemple de la partie main du code (ligne 300).
 Voici les méthodes de générations utilisables : 
 
 - **queryRollTable(Compétence, Stats) :**  Permet de générer une table qui demandera la stats à utiliser parmis les stats fournis en paramètre.
+  
 **Exemple :**
 ```py
 perso.queryRollTable("Combat"  , ["DEX", "AGI", "SEN"])
 ```
 
 - **linkSpeToComp(Compétence, Spécialité) :** Permet d'ajouter une ou plusieurs spécialités à une ou plusieurs compétences. (À utiliser avant la création de la table rollable).
+  
 **Exemple :**
 ```py
 perso.linkSpeToComp("Combat", ["Attaque", "Parade", "Esquive"]) 
 ``` 
 - **damageMacro() :**  Affiche les dégâts selon les différents palier de valeur de l'attaque (Demande en entrée la valeur du jet d'attaque, ainsi qu'un eventuel bonus au dégâts).
+  
 **Exemple :**
 ```py
 perso.damageMacro()
 ```
 - **rollInit() :**  Effectue un jet d'initiative (Demande à l'utilisateur un eventuel bonus d'initiative).
+  
 **Exemple :**
 ```py
 perso.rollInit()

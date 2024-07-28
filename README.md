@@ -27,7 +27,7 @@ Le calcul total du jet ressemble a ceci :
 Dans un premier temps, il vous faudra importer la classe *StatBlock*, du fichier `./character_macro.py`
 
 ```py
-import StatBlock
+from character_macro import StatBlock
 ```
 
 Puis instancier une nouvelle fiche de personnage avec : 

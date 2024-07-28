@@ -97,7 +97,7 @@ class StatBlock :
             macro += "[Fatigue]"
         return macro
 
-    def getInit(self, ask_for_bonus=True): 
+    def rollInit(self, ask_for_bonus=True): 
         """Macro to calculate the initiative, and to add the currently selected token to the turn order.
         The AGI stat modifier is used in this macro.
 
@@ -346,7 +346,7 @@ if __name__ == "__main__":
 
     ######## Getting the essential
     # Getting the init
-    print(perso.getInit())
+    print(perso.rollInit())
     # Getting the damage from a roll (will query the attack roll)
     # print(perso.damageMacro())
 

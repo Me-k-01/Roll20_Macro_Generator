@@ -51,6 +51,16 @@ perso.queryRollTable("Combat"  , ["DEX", "AGI", "SEN"])
 ```py
 perso.linkSpeToComp("Combat", ["Attaque", "Parade", "Esquive"]) 
 ``` 
+- **damageMacro() :**  Affiche les dégâts selon les différents palier de valeur de l'attaque (Demande en entrée la valeur du jet d'attaque, ainsi qu'un eventuel bonus au dégâts).
+**Exemple :**
+```py
+perso.damageMacro()
+```
+- **rollInit() :**  Effectue un jet d'initiative (Demande à l'utilisateur un eventuel bonus d'initiative).
+**Exemple :**
+```py
+perso.rollInit()
+```
 ## Configuration sur roll20 
 Voici un exemple de configuration de fiche perso avec cette outil :
 

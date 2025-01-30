@@ -45,6 +45,7 @@ class StatBlock :
             "Combat":[]
         }
         self.d100 = "d100cf<5cs>96"
+        
 
     def damageMacro(self, ask_for_bonus=True) :
         """Generate a macro that will calculate the damage threshold. 
@@ -233,6 +234,7 @@ class StatBlock :
 
         if is_contained : 
             macro = "[["+macro+"]]"
+            
         return macro
  
     def linkSpeToComp(self, comp_key, spe_key):
@@ -346,7 +348,8 @@ if __name__ == "__main__":
 
     ######## Getting the essential
     # Getting the init
-    print(perso.rollInit())
+    # print(perso.rollInit())
+
     # Getting the damage from a roll (will query the attack roll)
     # print(perso.damageMacro())
 

@@ -121,6 +121,15 @@ def formatNested(text, char_to_format=None):
     # Utiliser re.sub avec une fonction de remplacement personnalisée
     return pattern.sub(lambda m : customReplace(m, char_to_format), text) 
 
+def inferior_cond(a, b, then_statement, else_statement):
+    """ IF(a<b) : then_statement
+        ELSE    : else_statement """
+
+    # [[{{x,something-less-than-A}>A}*(T-F) + F]]
+    return "{{"+b+"-1,"+"-100000}>" + a + "}*(" + then_statement + "-" + else_statement + ")" \
+        + "+(" + else_statement + ")"
+
+
 if __name__ == "__main__":
     input_text = "Here is &#a  test @{not,replaced} and %{also,not,replaced} #bu#t # this# #e ||[][{}] and also @this should be replaced"
     # input_text = "Here is &#96a,a"

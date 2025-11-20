@@ -69,7 +69,7 @@ perso.rollInit()
 Voici un exemple de configuration de fiche perso avec cette outil :
 
 ### Ajouter les attributs
-Maintenant que les macro sont effectué vous pouvers les copier du terminal et les placers dans leurs emplacements respectives.
+Maintenant que les macro sont effectué vous pouvez les copier du terminal et les placers dans leurs emplacements respectives.
 
 ![Ajout macro dans la fiche](demo/ajout_macro.png)
 
